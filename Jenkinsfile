@@ -4,14 +4,10 @@ pipeline {
     stages {
         stage('Build') {
             steps {
+                sh 'export M2_HOME=/usr/local/Cellar/maven/3.5.3/libexec'
                 sh 'mvn clean package'
             }
-        }
-        stage('Test') {
-            steps {
-                echo 'Testing..'
-            }
-            post {
+             post {
                 success {
                     echo 'Now Archiving...'
                     archiveArtifacts artifacts: '**/target/*.war' 
